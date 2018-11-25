@@ -12,6 +12,8 @@
 		EAD5CFAD21AAD3EA0011324D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAD5CFAC21AAD3EA0011324D /* Assets.xcassets */; };
 		EAD5CFB021AAD3EA0011324D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAD5CFAE21AAD3EA0011324D /* LaunchScreen.storyboard */; };
 		EAD5CFBB21AAD3EA0011324D /* OctoSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5CFBA21AAD3EA0011324D /* OctoSearchTests.swift */; };
+		EAD5CFC621AAE01C0011324D /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5CFC521AAE01C0011324D /* ViewModel.swift */; };
+		EAD5CFC821AAE05D0011324D /* SearchRepositoriesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5CFC721AAE05D0011324D /* SearchRepositoriesResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,8 @@
 		EAD5CFB621AAD3EA0011324D /* OctoSearchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OctoSearchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAD5CFBA21AAD3EA0011324D /* OctoSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctoSearchTests.swift; sourceTree = "<group>"; };
 		EAD5CFBC21AAD3EA0011324D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EAD5CFC521AAE01C0011324D /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		EAD5CFC721AAE05D0011324D /* SearchRepositoriesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepositoriesResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,8 @@
 			children = (
 				EAD5CFA521AAD3E70011324D /* AppDelegate.swift */,
 				EAD5CFA721AAD3E70011324D /* ViewController.swift */,
+				EAD5CFC521AAE01C0011324D /* ViewModel.swift */,
+				EAD5CFC721AAE05D0011324D /* SearchRepositoriesResponse.swift */,
 				EAD5CFAC21AAD3EA0011324D /* Assets.xcassets */,
 				EAD5CFAE21AAD3EA0011324D /* LaunchScreen.storyboard */,
 				EAD5CFB121AAD3EA0011324D /* Info.plist */,
@@ -193,7 +199,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAD5CFC821AAE05D0011324D /* SearchRepositoriesResponse.swift in Sources */,
 				EAD5CFA821AAD3E70011324D /* ViewController.swift in Sources */,
+				EAD5CFC621AAE01C0011324D /* ViewModel.swift in Sources */,
 				EAD5CFA621AAD3E70011324D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
