@@ -16,6 +16,7 @@ final class ViewController: UITableViewController, UISearchBarDelegate {
 
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
+        searchController.dimsBackgroundDuringPresentation = false
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
 

@@ -109,7 +109,7 @@ final class ViewModel {
 
     var searchText: String = "" {
         didSet {
-            search()
+            throttledSearch()
         }
     }
 
@@ -133,15 +133,34 @@ final class ViewModel {
         }
     }
 
-    func search() {
+    var lastRequested: Date = .distantPast
+    var throttlingTimer: Timer? {
+        willSet {
+            throttlingTimer?.invalidate()
+        }
+    }
+
+    func throttledSearch(interval: Double = 1) {
+        let remaining = interval - Date().timeIntervalSince(lastRequested)
+        NSLog("%@", "\(#function), remaining = \(remaining)")
+        throttlingTimer = Timer.scheduledTimer(withTimeInterval: remaining, repeats: false) {[weak self] _ in
+            self?.lastRequested = Date()
+            self?.search()
+        }
+    }
+
+    private func search() {
+        NSLog("%@", "\(#function), text = \(searchText)")
+
         guard !searchText.isEmpty else {
             items = []
             return
         }
 
-        let r = try! JSONDecoder().decode(SearchRepositoriesResponse.self, from: sample.data(using: .utf8)!)
-        items = r.items
-        return
+        // fake value
+//        let r = try! JSONDecoder().decode(SearchRepositoriesResponse.self, from: sample.data(using: .utf8)!)
+//        items = r.items
+//        return
 
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
