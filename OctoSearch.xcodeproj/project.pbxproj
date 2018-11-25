@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		EAD5CFA621AAD3E70011324D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5CFA521AAD3E70011324D /* AppDelegate.swift */; };
 		EAD5CFA821AAD3E70011324D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5CFA721AAD3E70011324D /* ViewController.swift */; };
-		EAD5CFAB21AAD3E70011324D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAD5CFA921AAD3E70011324D /* Main.storyboard */; };
 		EAD5CFAD21AAD3EA0011324D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAD5CFAC21AAD3EA0011324D /* Assets.xcassets */; };
 		EAD5CFB021AAD3EA0011324D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EAD5CFAE21AAD3EA0011324D /* LaunchScreen.storyboard */; };
 		EAD5CFBB21AAD3EA0011324D /* OctoSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD5CFBA21AAD3EA0011324D /* OctoSearchTests.swift */; };
@@ -29,7 +28,6 @@
 		EAD5CFA221AAD3E70011324D /* OctoSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OctoSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAD5CFA521AAD3E70011324D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EAD5CFA721AAD3E70011324D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EAD5CFAA21AAD3E70011324D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EAD5CFAC21AAD3EA0011324D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EAD5CFAF21AAD3EA0011324D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EAD5CFB121AAD3EA0011324D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -79,7 +77,6 @@
 			children = (
 				EAD5CFA521AAD3E70011324D /* AppDelegate.swift */,
 				EAD5CFA721AAD3E70011324D /* ViewController.swift */,
-				EAD5CFA921AAD3E70011324D /* Main.storyboard */,
 				EAD5CFAC21AAD3EA0011324D /* Assets.xcassets */,
 				EAD5CFAE21AAD3EA0011324D /* LaunchScreen.storyboard */,
 				EAD5CFB121AAD3EA0011324D /* Info.plist */,
@@ -179,7 +176,6 @@
 			files = (
 				EAD5CFB021AAD3EA0011324D /* LaunchScreen.storyboard in Resources */,
 				EAD5CFAD21AAD3EA0011324D /* Assets.xcassets in Resources */,
-				EAD5CFAB21AAD3E70011324D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,14 +217,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		EAD5CFA921AAD3E70011324D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EAD5CFAA21AAD3E70011324D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		EAD5CFAE21AAD3EA0011324D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -363,6 +351,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FPZK4WRGW7;
 				INFOPLIST_FILE = OctoSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -381,6 +370,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FPZK4WRGW7;
 				INFOPLIST_FILE = OctoSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
