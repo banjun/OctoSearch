@@ -22,6 +22,7 @@ final class ViewController: UITableViewController, UISearchBarDelegate {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 
         viewModel.repositoriesDidChange = {[weak self] in self?.tableView.reloadData()}
+        viewModel.searchRepositoriesDidFail = {[weak self] in self?.presentError(error: $0)}
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -45,5 +46,11 @@ final class ViewController: UITableViewController, UISearchBarDelegate {
         guard let url = URL(string: item.html_url) else { return }
         let vc = SFSafariViewController(url: url)
         present(vc, animated: true)
+    }
+
+    func presentError(error: ViewModel.Error) {
+        let ac = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(ac, animated: true)
     }
 }

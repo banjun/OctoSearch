@@ -104,6 +104,9 @@ let sample = """
 """
 
 final class ViewModel {
+    var repositoriesDidChange: (() -> Void)?
+    var searchRepositoriesDidFail: ((Error) -> Void)?
+
     var searchText: String = "" {
         didSet {
             search()
@@ -116,7 +119,19 @@ final class ViewModel {
         }
     }
 
-    var repositoriesDidChange: (() -> Void)?
+    enum Error: Swift.Error, LocalizedError {
+        case network(Swift.Error)
+        case unexpectedCode(Int)
+        case nonDecodable(Swift.Error?)
+
+        var localizedDescription: String {
+            switch self {
+            case .network(let e): return e.localizedDescription
+            case .unexpectedCode(let c): return "Cannot get results (status code = \(c))"
+            case .nonDecodable(let e): return "Cannot decode (\(String(describing: e)))"
+            }
+        }
+    }
 
     func search() {
         guard !searchText.isEmpty else {
@@ -128,7 +143,7 @@ final class ViewModel {
         items = r.items
         return
 
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
         let param: [String: String] = ["q": searchText]
         let urlString = "https://api.github.com/search/repositories?"
@@ -140,15 +155,29 @@ final class ViewModel {
             DispatchQueue.main.async {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
-                if let error = error { NSLog("%@", "error = \(String(describing: error))"); return }
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
-                guard let data = data else { return }
+                if let error = error {
+                    NSLog("%@", "error = \(String(describing: error))")
+                    self.searchRepositoriesDidFail?(.network(error))
+                    return
+                }
+
+                let response = response as? HTTPURLResponse
+                guard response?.statusCode == 200 else {
+                    self.searchRepositoriesDidFail?(.unexpectedCode(response?.statusCode ?? 0))
+                    return
+                }
+                guard let data = data else {
+                    self.searchRepositoriesDidFail?(.nonDecodable(nil))
+                    return
+                }
+                
                 do {
                     let r = try JSONDecoder().decode(SearchRepositoriesResponse.self, from: data)
                     NSLog("%@", "r = \(String(describing: r))")
                     self.items = r.items
                 } catch {
                     NSLog("%@", "error = \(String(describing: error))")
+                    self.searchRepositoriesDidFail?(.nonDecodable(error))
                 }
             }
             }.resume()
