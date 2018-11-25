@@ -1,4 +1,5 @@
 import UIKit
+import SafariServices
 
 let sample = """
 {
@@ -114,25 +115,35 @@ struct SearchRepositoriesResponse: Codable {
 final class ViewController: UITableViewController, UISearchBarDelegate {
     private var searchText = "" {
         didSet {
-            let param: [String: String] = ["q": searchText]
-            let urlString = "https://api.github.com/search/repositories?"
-                + param
-                    .map {"\($0)=\($1.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)"}
-                    .joined(separator: "&")
-            let req = URLRequest(url: URL(string: urlString)!)
-            URLSession.shared.dataTask(with: req) { (data, response, error) in
-                if let error = error { NSLog("%@", "error = \(String(describing: error))"); return }
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
-                guard let data = data else { return }
-                do {
-                    let r = try JSONDecoder().decode(SearchRepositoriesResponse.self, from: data)
-                    NSLog("%@", "r = \(String(describing: r))")
-                } catch {
-                    NSLog("%@", "error = \(String(describing: error))")
-                }
-            }.resume()
+            let r = try! JSONDecoder().decode(SearchRepositoriesResponse.self, from: sample.data(using: .utf8)!)
+            items = r.items
+
+//            let param: [String: String] = ["q": searchText]
+//            let urlString = "https://api.github.com/search/repositories?"
+//                + param
+//                    .map {"\($0)=\($1.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)"}
+//                    .joined(separator: "&")
+//            let req = URLRequest(url: URL(string: urlString)!)
+//            URLSession.shared.dataTask(with: req) { (data, response, error) in
+//                if let error = error { NSLog("%@", "error = \(String(describing: error))"); return }
+//                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
+//                guard let data = data else { return }
+//                do {
+//                    let r = try JSONDecoder().decode(SearchRepositoriesResponse.self, from: data)
+//                    NSLog("%@", "r = \(String(describing: r))")
+//                } catch {
+//                    NSLog("%@", "error = \(String(describing: error))")
+//                }
+//            }.resume()
         }
     }
+
+    private var items: [SearchRepositoriesResponse.Item] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+
     private let searchController = UISearchController(searchResultsController: nil)
 
     init() {
@@ -147,10 +158,31 @@ final class ViewController: UITableViewController, UISearchBarDelegate {
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
+
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchText = searchText
     }
-}
 
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let item = items[indexPath.row]
+        cell.textLabel?.text = item.full_name
+        return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let item = items[indexPath.row]
+        guard let url = URL(string: item.html_url) else { return }
+        let vc = SFSafariViewController(url: url)
+        present(vc, animated: true)
+    }
+}
